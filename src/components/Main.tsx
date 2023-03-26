@@ -248,11 +248,26 @@ export default function (props: {
         role: "system",
         content: systemRule
       })
-    if (isPrepromptEnabled())
+    if (isPrepromptEnabled()) {
+      // When the text is an English wording
+      if (isTranslatorEnabled() && /^[a-zA-Z]+$/.test(inputValue.trim())) {
+        // 翻译为中文时，增加单词模式，可以更详细的翻译结果，包括：音标、词性、含义、双语示例。
+        const systemPromptForWrod = `你是一个翻译引擎，请将翻译给到的文本，只需要翻译不需要解释。当且仅当文本只有一个单词时，请给出单词原始形态（如果有）、单词的语种、对应的音标（如果有）、所有含义（含词性）、双语示例，至少三条例句，请严格按照下面格式给到翻译结果：
+                <原始文本>
+                [<语种>] · / <单词音标>
+                [<词性缩写>] <中文含义>]
+                例句：
+                <序号><例句>(例句翻译)`
+        setSetting({
+          ...setting(),
+          ...{ systemRule: systemPromptForWrod }
+        })
+      }
       message.push({
         role: "assistant",
         content: preprompt()
       })
+    }
     message.push({
       role: "user",
       content: inputValue
@@ -472,12 +487,12 @@ export default function (props: {
           when={!loading()}
           fallback={() => (
             <div class="h-12 flex items-center justify-center bg-slate bg-op-15 text-slate rounded">
-              <span>AI 正在思考...</span>
+              <span>Thinking...</span>
               <div
                 class="ml-1em px-2 py-0.5 border border-slate text-slate rounded-md text-sm op-70 cursor-pointer hover:bg-slate/10"
                 onClick={stopStreamFetch}
               >
-                不需要了
+                Cancel
               </div>
             </div>
           )}
@@ -492,7 +507,7 @@ export default function (props: {
             <textarea
               ref={inputRef!}
               id="input"
-              placeholder="与 ta 对话吧"
+              placeholder=""
               autocomplete="off"
               value={inputContent()}
               autofocus
@@ -551,7 +566,7 @@ export default function (props: {
               }}
             >
               <button
-                title="发送"
+                title="Send"
                 onClick={() => handleButtonClick()}
                 class="i-carbon:send-filled text-5 mx-3"
               />

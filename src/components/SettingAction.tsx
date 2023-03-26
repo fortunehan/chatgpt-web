@@ -21,7 +21,7 @@ export default function SettingAction(props: {
         <SettingItem icon="i-ri:lock-password-line" label="网站密码">
           <input
             type="password"
-            value={props.setting().password}
+            value={props.setting().password!}
             class="max-w-150px ml-1em px-1 text-slate-7 dark:text-slate rounded-sm bg-slate bg-op-15 focus:bg-op-20 focus:ring-0 focus:outline-none"
             onInput={e => {
               props.setSetting({
@@ -229,6 +229,7 @@ async function exportMD(messages: ChatMessage[]) {
   await copyToClipboard(
     messages
       .map(k => {
+        // @ts-ignore
         return `### ${role[k.role]}\n\n${k.content.trim()}`
       })
       .join("\n\n\n\n")

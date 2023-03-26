@@ -22,6 +22,7 @@ export default function (props: {
     defaultMessage: string
     resetContinuousDialogue: boolean
   }
+  sessionKey: string
 }) {
   let inputRef: HTMLTextAreaElement
   let containerRef: HTMLDivElement
@@ -40,6 +41,13 @@ export default function (props: {
   })
   const [height, setHeight] = createSignal("48px")
   const [compositionend, setCompositionend] = createSignal(true)
+
+  const [isPrepromptEnabled, setPrepromptEnable] = createSignal(false)
+  const [preprompt, setPreprompt] = createSignal("")
+
+  const [isCommonEnabled, setCommonEnabled] = createSignal(true)
+  const [isTranslatorEnabled, setTranslatorEnabled] = createSignal(false)
+  const [isWriteEnabled, setWriteEnabled] = createSignal(false)
 
   const scrollToBottom = throttle(
     () => {
@@ -75,8 +83,8 @@ export default function (props: {
     createResizeObserver(containerRef, ({ width, height }, el) => {
       if (el === containerRef) setContainerWidth(`${width}px`)
     })
-    const setting = localStorage.getItem("setting")
-    const session = localStorage.getItem("session")
+    const setting = localStorage.getItem(`setting`)
+    const session = localStorage.getItem(`session`)
     try {
       let archiveSession = false
       if (setting) {
@@ -92,14 +100,16 @@ export default function (props: {
         const parsed = JSON.parse(session)
         if (parsed.length > 1) {
           setMessageList(parsed)
-        } else
+        } else if (!defaultMessage) setMessageList([])
+        else
           setMessageList([
             {
               role: "assistant",
               content: defaultMessage
             }
           ])
-      } else
+      } else if (!defaultMessage) setMessageList([])
+      else
         setMessageList([
           {
             role: "assistant",
@@ -139,14 +149,14 @@ export default function (props: {
         setMessageList(messageList().slice(1))
       }
       if (setting().archiveSession) {
-        localStorage.setItem("session", JSON.stringify(messageList()))
+        localStorage.setItem(`session`, JSON.stringify(messageList()))
       }
     }
     return true
   })
 
   createEffect(() => {
-    localStorage.setItem("setting", JSON.stringify(setting()))
+    localStorage.setItem(`setting`, JSON.stringify(setting()))
   })
 
   createEffect(prev => {
@@ -232,17 +242,21 @@ export default function (props: {
     const controller = new AbortController()
     setController(controller)
     const systemRule = setting().systemRule.trim()
-    const message = [
-      {
-        role: "user",
-        content: inputValue
-      }
-    ]
+    const message = []
     if (systemRule)
       message.push({
         role: "system",
         content: systemRule
       })
+    if (isPrepromptEnabled())
+      message.push({
+        role: "assistant",
+        content: preprompt()
+      })
+    message.push({
+      role: "user",
+      content: inputValue
+    })
     const response = await fetch("/api", {
       method: "POST",
       body: JSON.stringify({
@@ -354,9 +368,61 @@ export default function (props: {
     find(value)
   }
 
+  const handleCommonBtn = () => {
+    setPrepromptEnable(false)
+    setPreprompt("")
+
+    setSetting({
+      ...setting(),
+      ...{ continuousDialogue: false, systemRule: "" }
+    })
+
+    setCommonEnabled(true)
+    setTranslatorEnabled(false)
+    setWriteEnabled(false)
+  }
+
+  const handleTranslateBtn = () => {
+    setPrepromptEnable(true)
+    setPreprompt("将以下内容翻译成中文，如果内容本身是中文则翻译成英文。")
+
+    setSetting({
+      ...setting(),
+      ...{
+        continuousDialogue: false,
+        systemRule:
+          "You are a translation engine that can only translate text and cannot interpret it."
+      }
+    })
+
+    setCommonEnabled(false)
+    setTranslatorEnabled(true)
+    setWriteEnabled(false)
+  }
+
+  const handleWriteBtn = () => {
+    setPrepromptEnable(true)
+    setPreprompt(
+      "write this text in English, 如果内容本身是中文则使用中文润色这段文本。"
+    )
+
+    setSetting({
+      ...setting(),
+      ...{
+        continuousDialogue: false,
+        systemRule:
+          "Revise the following sentences to make them more clear, concise, and coherent."
+      }
+    })
+
+    setCommonEnabled(false)
+    setTranslatorEnabled(false)
+    setWriteEnabled(true)
+  }
+
   return (
     <div ref={containerRef!} class="mt-2">
-      <div class="px-1em mb-6em">
+      <div class="px-1em mb-8em">
         <div
           id="message-container"
           class="px-1em"
@@ -490,6 +556,65 @@ export default function (props: {
                 class="i-carbon:send-filled text-5 mx-3"
               />
             </div>
+          </div>
+          <div class="mt-2">
+            <button
+              id="assist"
+              onClick={handleCommonBtn}
+              classList={{
+                "px-2 py-2 bg-slate bg-op-15 hover:bg-op-20 rounded-full mr-2 border-2 border-blue-100 ":
+                  true,
+                "border-blue-600": isCommonEnabled()
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="#f9f6f6"
+                viewBox="0 0 256 256"
+              >
+                <path d="M176,156a12,12,0,1,1-12-12A12,12,0,0,1,176,156ZM92,144a12,12,0,1,0,12,12A12,12,0,0,0,92,144Zm148,24v24a16,16,0,0,1-16,16H32a16,16,0,0,1-16-16V169.13A113.38,113.38,0,0,1,51.4,86.72L26.34,61.66A8,8,0,0,1,37.66,50.34L63.82,76.5a111.43,111.43,0,0,1,128.55-.19l26-26a8,8,0,0,1,11.32,11.32L204.82,86.5c.75.71,1.5,1.43,2.24,2.17A111.25,111.25,0,0,1,240,168Zm-16,0a96,96,0,0,0-96-96h-.34C74.91,72.18,32,115.75,32,169.13V192H224Z"></path>
+              </svg>
+            </button>
+            <button
+              id="translate"
+              onClick={handleTranslateBtn}
+              classList={{
+                "px-2 py-2 bg-slate bg-op-15 hover:bg-op-20 rounded-full mr-2 border-2 border-blue-100 ":
+                  true,
+                "border-blue-600": isTranslatorEnabled()
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="#f9f6f6"
+                viewBox="0 0 256 256"
+              >
+                <path d="M239.15,212.42l-56-112a8,8,0,0,0-14.31,0l-21.71,43.43A88,88,0,0,1,100,126.93,103.65,103.65,0,0,0,127.69,64H152a8,8,0,0,0,0-16H96V32a8,8,0,0,0-16,0V48H24a8,8,0,0,0,0,16h87.63A87.76,87.76,0,0,1,88,116.35a87.74,87.74,0,0,1-19-31,8,8,0,1,0-15.08,5.34A103.63,103.63,0,0,0,76,127a87.55,87.55,0,0,1-52,17,8,8,0,0,0,0,16,103.46,103.46,0,0,0,64-22.08,104.18,104.18,0,0,0,51.44,21.31l-26.6,53.19a8,8,0,0,0,14.31,7.16L140.94,192h70.11l13.79,27.58A8,8,0,0,0,232,224a8,8,0,0,0,7.15-11.58ZM148.94,176,176,121.89,203.05,176Z"></path>
+              </svg>
+            </button>
+            <button
+              id="write"
+              onClick={handleWriteBtn}
+              classList={{
+                "px-2 py-2 bg-slate bg-op-15 hover:bg-op-20 rounded-full mr-2 border-2 border-blue-100 ":
+                  true,
+                "border-blue-600": isWriteEnabled()
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="#f9f6f6"
+                viewBox="0 0 256 256"
+              >
+                <path d="M240,100.68a15.86,15.86,0,0,0-4.69-11.31L166.63,20.68a16,16,0,0,0-22.63,0L115.57,49.11l-58,21.77A16.06,16.06,0,0,0,47.35,83.23L24.11,222.68A8,8,0,0,0,32,232a8.4,8.4,0,0,0,1.32-.11l139.44-23.24a16,16,0,0,0,12.35-10.17l21.77-58L235.31,112A15.87,15.87,0,0,0,240,100.68Zm-69.87,92.19L55.32,212l47.37-47.37a28,28,0,1,0-11.32-11.32L44,200.7,63.13,85.86,118,65.29,190.7,138ZM104,140a12,12,0,1,1,12,12A12,12,0,0,1,104,140Zm96-15.32L131.31,56l24-24L224,100.68Z"></path>
+              </svg>
+            </button>
           </div>
         </Show>
       </div>

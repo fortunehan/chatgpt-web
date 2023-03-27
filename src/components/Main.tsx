@@ -243,8 +243,10 @@ export default function (props: {
         role: "system",
         content: systemRule
       })
+    console.log(selectedBtn())
     switch (selectedBtn()) {
       case "translateBtn":
+        console.log(1)
         if (/^[a-zA-Z]+$/.test(inputValue.trim())) {
           // 翻译为中文时，增加单词模式，可以更详细的翻译结果，包括：音标、词性、含义、双语示例。
           inputValue = `你是一个翻译引擎，请将翻译给到的文本，只需要翻译不需要解释。当且仅当文本只有一个单词时，请给出单词原始形态（如果有）、单词的语种、对应的音标（如果有）、所有含义（含词性）、双语示例，至少三条例句，请严格按照下面格式给到翻译结果：
@@ -254,14 +256,16 @@ export default function (props: {
                 例句：
                 <序号><例句>(例句翻译)。
                 要翻译的文本是：${inputValue}`
+        } else {
+          inputValue = `下面我让你来充当翻译家，你的目标是把任何语言翻译成中文，请翻译时不要带翻译腔，而是要翻译得自然、流畅和地道，最重要的是要简明扼要。请翻译下面这句话：${inputValue}`
         }
-        inputValue = `下面我让你来充当翻译家，你的目标是把任何语言翻译成中文，请翻译时不要带翻译腔，而是要翻译得自然、流畅和地道，最重要的是要简明扼要。请翻译下面这句话：${inputValue}`
         setSetting({
           ...setting(),
           ...{ continuousDialogue: false, systemRule: "" }
         })
         break
       case "writeBtn":
+        console.log(2)
         inputValue = `我希望你能担任英语翻译、拼写校对和修辞改进的角色。我会用任何语言和你交流，你会识别语言，将其翻译并用更为优美和精炼的英语回答我。请将我简单的词汇和句子替换成更为优美和简洁的表达方式，确保意思不变，但使其更具商务性。请仅回答更正和改进的部分，不要写解释。我的第一句话是：${inputValue}`
         break
       case "codeExplainBtn":

@@ -260,12 +260,16 @@ export default function (props: {
           ...setting(),
           ...{ continuousDialogue: false, systemRule: "" }
         })
+        break
       case "writeBtn":
         inputValue = `我希望你能担任英语翻译、拼写校对和修辞改进的角色。我会用任何语言和你交流，你会识别语言，将其翻译并用更为优美和精炼的英语回答我。请将我简单的词汇和句子替换成更为优美和简洁的表达方式，确保意思不变，但使其更具商务性。请仅回答更正和改进的部分，不要写解释。我的第一句话是：${inputValue}`
+        break
       case "codeExplainBtn":
         inputValue = `I would like you to serve as a code interpreter, elucidate the syntax and the semantics of the code. And please give English and Chinese version. The code is: ${inputValue}`
+        break
       case "codeExpertBtn":
         inputValue = `I hope you can conduct code review, debugging, refactoring, algorithm implementation, and provide code explanations. The code is: ${inputValue}`
+        break
       default:
         setSetting({
           ...setting(),

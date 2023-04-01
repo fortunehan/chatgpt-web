@@ -246,7 +246,6 @@ export default function (props: {
     console.log(selectedBtn())
     switch (selectedBtn()) {
       case "translateBtn":
-        console.log(1)
         if (/^[a-zA-Z]+$/.test(inputValue.trim())) {
           // 翻译为中文时，增加单词模式，可以更详细的翻译结果，包括：音标、词性、含义、双语示例。
           inputValue = `你是一个翻译引擎，请将翻译给到的文本，只需要翻译不需要解释。当且仅当文本只有一个单词时，请给出单词原始形态（如果有）、单词的语种、对应的音标（如果有）、所有含义（含词性）、双语示例，至少三条例句，请严格按照下面格式给到翻译结果：
@@ -265,14 +264,25 @@ export default function (props: {
         })
         break
       case "writeBtn":
-        console.log(2)
-        inputValue = `我希望你能担任英语翻译、拼写校对和修辞改进的角色。我会用任何语言和你交流，你会识别语言，将其翻译并用更为优美和精炼的英语回答我。请将我简单的词汇和句子替换成更为优美和简洁的表达方式，确保意思不变，但使其更具商务性。请仅回答更正和改进的部分，不要写解释。我的第一句话是：${inputValue}`
+        inputValue = `我希望你能担任翻译、拼写校对和修辞改进的角色。我会用中文或英文和你交流，你会识别语言，将其翻译并用更为精炼的英语回答我。请将我简单的词汇和句子替换成更为简洁的表达方式，确保意思不变。请仅回答更正和改进的部分，不要写解释。请翻译下面这句话：${inputValue}`
+        setSetting({
+          ...setting(),
+          ...{ continuousDialogue: false, systemRule: "" }
+        })
         break
       case "codeExplainBtn":
         inputValue = `I would like you to serve as a code interpreter, elucidate the syntax and the semantics of the code. And please give English and Chinese version. The code is: ${inputValue}`
+        setSetting({
+          ...setting(),
+          ...{ continuousDialogue: false, systemRule: "" }
+        })
         break
       case "codeExpertBtn":
         inputValue = `I hope you can conduct code review, debugging, refactoring, algorithm implementation, and provide code explanations. The code is: ${inputValue}`
+        setSetting({
+          ...setting(),
+          ...{ continuousDialogue: false, systemRule: "" }
+        })
         break
       default:
         setSetting({

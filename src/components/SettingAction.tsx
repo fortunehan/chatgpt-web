@@ -26,7 +26,7 @@ export default function SettingAction(props: {
     >
       <Show when={shown()}>
         <div class="<sm:max-h-10em max-h-14em overflow-y-auto">
-          <SettingItem icon="i-ri:lock-password-line" label="网站密码">
+          <SettingItem icon="i-ri:lock-password-line" label="password">
             <input
               type="password"
               value={props.setting().password}
@@ -39,7 +39,7 @@ export default function SettingAction(props: {
               }}
             />
           </SettingItem>
-          <SettingItem icon="i-carbon:api" label="OpenAI Key">
+          <SettingItem icon="i-carbon:api" label="key">
             <input
               type="password"
               value={props.setting().openaiAPIKey}
@@ -52,10 +52,7 @@ export default function SettingAction(props: {
               }}
             />
           </SettingItem>
-          <SettingItem
-            icon="i-carbon:machine-learning-model"
-            label="OpenAI 模型"
-          >
+          <SettingItem icon="i-carbon:machine-learning-model" label="model">
             <select
               name="model"
               class="max-w-150px w-full bg-slate bg-op-15 rounded-sm appearance-none accent-slate text-center  focus:bg-op-20 focus:ring-0 focus:outline-none"
@@ -72,7 +69,7 @@ export default function SettingAction(props: {
               <option value="gpt-4-32k">gpt-4(32k)</option>
             </select>
           </SettingItem>
-          <SettingItem icon="i-carbon:user-online" label="系统角色指令">
+          <SettingItem icon="i-carbon:user-online" label="system role">
             <input
               type="text"
               value={props.setting().systemRule}
@@ -85,7 +82,7 @@ export default function SettingAction(props: {
               }}
             />
           </SettingItem>
-          <SettingItem icon="i-carbon:data-enrichment" label="思维发散程度">
+          <SettingItem icon="i-carbon:data-enrichment" label="temperature">
             <input
               type="range"
               min={0}
@@ -102,10 +99,7 @@ export default function SettingAction(props: {
               }}
             />
           </SettingItem>
-          <SettingItem
-            icon="i-carbon:save-image"
-            label="记录对话内容，刷新不会消失"
-          >
+          <SettingItem icon="i-carbon:save-image" label="save conversation">
             <label class="relative inline-flex items-center cursor-pointer ml-1">
               <input
                 type="checkbox"
@@ -123,7 +117,7 @@ export default function SettingAction(props: {
           </SettingItem>
           <SettingItem
             icon="i-carbon:3d-curve-auto-colon"
-            label="开启连续对话，将加倍消耗 Token"
+            label="enable context"
           >
             <label class="relative inline-flex items-center cursor-pointer ml-1">
               <input
@@ -149,7 +143,7 @@ export default function SettingAction(props: {
             setShown(!shown())
           }}
           icon="i-carbon:settings"
-          label="设置"
+          label="settings"
         />
 
         <div class="flex">

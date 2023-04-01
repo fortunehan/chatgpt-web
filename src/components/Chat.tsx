@@ -440,7 +440,7 @@ export default function (props: {
               <textarea
                 ref={inputRef!}
                 id="input"
-                placeholder="与 ta 对话吧"
+                placeholder=""
                 autocomplete="off"
                 value={inputContent()}
                 autofocus
@@ -500,7 +500,7 @@ export default function (props: {
                 }}
               >
                 <button
-                  title="发送"
+                  title="send"
                   onClick={() => sendMessage()}
                   class="i-carbon:send-filled text-5 mx-3"
                 />

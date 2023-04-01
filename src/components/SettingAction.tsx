@@ -176,6 +176,7 @@ export default function SettingAction(props: {
           </button>
           <button
             id="translateBtn"
+            title="translate"
             onClick={() =>
               props.setSetting({
                 ...props.setting(),
@@ -210,6 +211,7 @@ export default function SettingAction(props: {
           </button>
           <button
             id="polishBtn"
+            title="polish"
             onClick={() =>
               props.setSetting({
                 ...props.setting(),
@@ -240,6 +242,7 @@ export default function SettingAction(props: {
           </button>
           <button
             id="grammarBtn"
+            title="grammar analysis"
             onClick={() =>
               props.setSetting({
                 ...props.setting(),
@@ -271,6 +274,7 @@ export default function SettingAction(props: {
           </button>
           <button
             id="codeExplainBtn"
+            title="explain codes"
             onClick={() =>
               props.setSetting({
                 ...props.setting(),
@@ -300,6 +304,7 @@ export default function SettingAction(props: {
           </button>
           <button
             id="codeExpertBtn"
+            title="analysis codes"
             onClick={() =>
               props.setSetting({
                 ...props.setting(),

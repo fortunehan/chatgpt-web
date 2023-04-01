@@ -237,60 +237,24 @@ export default function (props: {
     const controller = new AbortController()
     setController(controller)
     const systemRule = setting().systemRule.trim()
+    let prePrompt = setting().prePrompt.trim()
     const message = []
     if (systemRule)
       message.push({
         role: "system",
         content: systemRule
       })
-    console.log(selectedBtn())
-    switch (selectedBtn()) {
-      case "translateBtn":
+    if (prePrompt) {
+      if (setting().preAction == "translate") {
+        // When only input one English word
         if (/^[a-zA-Z]+$/.test(inputValue.trim())) {
-          // 翻译为中文时，增加单词模式，可以更详细的翻译结果，包括：音标、词性、含义、双语示例。
-          inputValue = `你是一个翻译引擎，请将翻译给到的文本，只需要翻译不需要解释。当且仅当文本只有一个单词时，请给出单词原始形态（如果有）、单词的语种、对应的音标（如果有）、所有含义（含词性）、双语示例，至少三条例句，请严格按照下面格式给到翻译结果：
-                <原始文本>
-                [<语种>] · / <单词音标>
-                [<词性缩写>] <中文含义>]
-                例句：
-                <序号><例句>(例句翻译)。
-                要翻译的文本是：${inputValue}`
+          prePrompt = prePrompt.split("|")[0]
         } else {
-          inputValue = `下面我让你来充当翻译家，你的目标是把任何语言翻译成中文，请翻译时不要带翻译腔，而是要翻译得自然、流畅和地道，最重要的是要简明扼要。请翻译下面这句话：${inputValue}`
+          prePrompt = prePrompt.split("|")[1]
         }
-        setSetting({
-          ...setting(),
-          ...{ continuousDialogue: false, systemRule: "" }
-        })
-        break
-      case "writeBtn":
-        inputValue = `我希望你能担任翻译、拼写校对和修辞改进的角色。我会用中文或英文和你交流，你会识别语言，将其翻译并用更为精炼的英语回答我。请将我简单的词汇和句子替换成更为简洁的表达方式，确保意思不变。请仅回答更正和改进的部分，不要写解释。请翻译下面这句话：${inputValue}`
-        setSetting({
-          ...setting(),
-          ...{ continuousDialogue: false, systemRule: "" }
-        })
-        break
-      case "codeExplainBtn":
-        inputValue = `I would like you to serve as a code interpreter, elucidate the syntax and the semantics of the code. And please give English and Chinese version. The code is: ${inputValue}`
-        setSetting({
-          ...setting(),
-          ...{ continuousDialogue: false, systemRule: "" }
-        })
-        break
-      case "codeExpertBtn":
-        inputValue = `I hope you can conduct code review, debugging, refactoring, algorithm implementation, and provide code explanations. The code is: ${inputValue}`
-        setSetting({
-          ...setting(),
-          ...{ continuousDialogue: false, systemRule: "" }
-        })
-        break
-      default:
-        setSetting({
-          ...setting(),
-          ...{ continuousDialogue: false, systemRule: "" }
-        })
+      }
+      inputValue = prePrompt + inputValue
     }
-
     message.push({
       role: "user",
       content: inputValue

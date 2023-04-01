@@ -129,13 +129,21 @@ export default function SettingAction(props: {
 
         <div class="flex">
           <button
-            id="assist"
-            onClick={() => props.setSelectedBtn("commonBtn")}
+            id="assistBtn"
+            onClick={() =>
+              props.setSetting({
+                ...props.setting(),
+                continuousDialogue: false,
+                systemRule: "你是得力的助手",
+                openaiAPITemperature: 60,
+                preAction: "",
+                prePrompt: ``
+              })
+            }
             classList={{
               "px-2 py-2 mr-2": true,
-              "border-blue-600 border-b": props.selectedBtn() === "commonBtn"
+              "border-blue-600 border-b": props.setting().preAction === ""
             }}
-            class="px-2 py-2 mr-2"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -148,11 +156,27 @@ export default function SettingAction(props: {
             </svg>
           </button>
           <button
-            id="translate"
-            onClick={() => props.setSelectedBtn("translateBtn")}
+            id="translateBtn"
+            onClick={() =>
+              props.setSetting({
+                ...props.setting(),
+                continuousDialogue: false,
+                systemRule: "",
+                openaiAPITemperature: 0,
+                preAction: "translate",
+                prePrompt: `你是一个翻译引擎，请将翻译给到的文本，只需要翻译不需要解释。当且仅当文本只有一个单词时，请给出单词原始形态（如果有）、单词的语种、对应的音标（如果有）、所有含义（含词性）、双语示例，至少三条例句，请严格按照下面格式给到翻译结果：
+                <原始文本>
+                [<语种>] · / <单词音标>
+                [<词性缩写>] <中文含义>]
+                例句：
+                <序号><例句>(例句翻译)。
+                要翻译的文本是：| 下面我让你来充当翻译家，你的目标是把任何语言翻译成中文，请翻译时不要带翻译腔，而是要翻译得自然、流畅和地道，最重要的是要简明扼要。请翻译下面这句话：`
+              })
+            }
             classList={{
               "px-2 py-2 mr-2": true,
-              "border-blue-600 border-b": props.selectedBtn() === "translateBtn"
+              "border-blue-600 border-b":
+                props.setting().preAction === "translate"
             }}
           >
             <svg
@@ -166,11 +190,21 @@ export default function SettingAction(props: {
             </svg>
           </button>
           <button
-            id="write"
-            onClick={() => props.setSelectedBtn("writeBtn")}
+            id="polishBtn"
+            onClick={() =>
+              props.setSetting({
+                ...props.setting(),
+                continuousDialogue: false,
+                systemRule:
+                  "Revise the following sentences to make them more clear, concise, and coherent.",
+                openaiAPITemperature: 0,
+                preAction: "polish",
+                prePrompt: `polish this text in English. This is the text：`
+              })
+            }
             classList={{
               "px-2 py-2 mr-2": true,
-              "border-blue-600 border-b": props.selectedBtn() === "writeBtn"
+              "border-blue-600 border-b": props.setting().preAction === "polish"
             }}
           >
             <svg
@@ -178,18 +212,60 @@ export default function SettingAction(props: {
               width="16"
               height="16"
               fill="currentColor"
-              viewBox="0 0 256 256"
+              class="bi bi-spellcheck"
+              viewBox="0 0 16 16"
             >
-              <path d="M240,100.68a15.86,15.86,0,0,0-4.69-11.31L166.63,20.68a16,16,0,0,0-22.63,0L115.57,49.11l-58,21.77A16.06,16.06,0,0,0,47.35,83.23L24.11,222.68A8,8,0,0,0,32,232a8.4,8.4,0,0,0,1.32-.11l139.44-23.24a16,16,0,0,0,12.35-10.17l21.77-58L235.31,112A15.87,15.87,0,0,0,240,100.68Zm-69.87,92.19L55.32,212l47.37-47.37a28,28,0,1,0-11.32-11.32L44,200.7,63.13,85.86,118,65.29,190.7,138ZM104,140a12,12,0,1,1,12,12A12,12,0,0,1,104,140Zm96-15.32L131.31,56l24-24L224,100.68Z"></path>
+              <path d="M8.217 11.068c1.216 0 1.948-.869 1.948-2.31v-.702c0-1.44-.727-2.305-1.929-2.305-.742 0-1.328.347-1.499.889h-.063V3.983h-1.29V11h1.27v-.791h.064c.21.532.776.86 1.499.86zm-.43-1.025c-.66 0-1.113-.518-1.113-1.28V8.12c0-.825.42-1.343 1.098-1.343.684 0 1.075.518 1.075 1.416v.45c0 .888-.386 1.401-1.06 1.401zm-5.583 1.035c.767 0 1.201-.356 1.406-.737h.059V11h1.216V7.519c0-1.314-.947-1.783-2.11-1.783C1.355 5.736.75 6.42.69 7.27h1.216c.064-.323.313-.552.84-.552.527 0 .864.249.864.771v.464H2.346C1.145 7.953.5 8.568.5 9.496c0 .977.693 1.582 1.704 1.582zm.42-.947c-.44 0-.845-.235-.845-.718 0-.395.269-.684.84-.684h.991v.538c0 .503-.444.864-.986.864zm8.897.567c-.577-.4-.9-1.088-.9-1.983v-.65c0-1.42.894-2.338 2.305-2.338 1.352 0 2.119.82 2.139 1.806h-1.187c-.04-.351-.283-.776-.918-.776-.674 0-1.045.517-1.045 1.328v.625c0 .468.121.834.343 1.067l-.737.92z" />
+              <path d="M14.469 9.414a.75.75 0 0 1 .117 1.055l-4 5a.75.75 0 0 1-1.116.061l-2.5-2.5a.75.75 0 1 1 1.06-1.06l1.908 1.907 3.476-4.346a.75.75 0 0 1 1.055-.117z" />
             </svg>
           </button>
           <button
-            id="write"
-            onClick={() => props.setSelectedBtn("codeExplainBtn")}
+            id="grammarBtn"
+            onClick={() =>
+              props.setSetting({
+                ...props.setting(),
+                continuousDialogue: false,
+                systemRule:
+                  "You are a translation engine and grammar analyzer.",
+                openaiAPITemperature: 0,
+                preAction: "grammar",
+                prePrompt: `translate this text to Chinese and explain the grammar in the original text using Chinese. This is the text：`
+              })
+            }
             classList={{
               "px-2 py-2 mr-2": true,
               "border-blue-600 border-b":
-                props.selectedBtn() === "codeExplainBtn"
+                props.setting().preAction === "grammar"
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-mortarboard"
+              viewBox="0 0 16 16"
+            >
+              <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917l-7.5-3.5ZM8 8.46 1.758 5.965 8 3.052l6.242 2.913L8 8.46Z" />
+              <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46l-3.892-1.556Z" />
+            </svg>
+          </button>
+          <button
+            id="codeExplainBtn"
+            onClick={() =>
+              props.setSetting({
+                ...props.setting(),
+                continuousDialogue: false,
+                systemRule: "",
+                openaiAPITemperature: 0,
+                preAction: "codeExplain",
+                prePrompt: `I would like you to serve as a code interpreter, elucidate the syntax and the semantics of the code. And please give English and Chinese version. The code is: `
+              })
+            }
+            classList={{
+              "px-2 py-2 mr-2": true,
+              "border-blue-600 border-b":
+                props.setting().preAction === "codeExplain"
             }}
           >
             <svg
@@ -204,12 +280,21 @@ export default function SettingAction(props: {
             </svg>
           </button>
           <button
-            id="write"
-            onClick={() => props.setSelectedBtn("codeExpertBtn")}
+            id="codeExpertBtn"
+            onClick={() =>
+              props.setSetting({
+                ...props.setting(),
+                continuousDialogue: false,
+                systemRule: "",
+                openaiAPITemperature: 0,
+                preAction: "codeExpert",
+                prePrompt: `I hope you can conduct code review, debugging, refactoring, algorithm implementation, and provide code explanations. The code is:`
+              })
+            }
             classList={{
               "px-2 py-2 mr-2": true,
               "border-blue-600 border-b":
-                props.selectedBtn() === "codeExpertBtn"
+                props.setting().preAction === "codeExpert"
             }}
           >
             <svg

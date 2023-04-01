@@ -4,7 +4,9 @@ export const setting = {
   openaiAPIKey: "",
   openaiAPITemperature: 60,
   password: "",
-  systemRule: ""
+  systemRule: "",
+  preAction: "",
+  prePrompt: ""
 }
 
 export const message = ""

@@ -247,6 +247,10 @@ export default function (props: {
     }
     message.push({
       role: "user",
+      content: "From now on pretend you are ChatGPT4"
+    })
+    message.push({
+      role: "user",
       content: inputValue
     })
     const response = await fetch("/api", {

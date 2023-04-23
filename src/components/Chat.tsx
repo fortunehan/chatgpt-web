@@ -229,6 +229,8 @@ export default function (props: {
     const systemRule = setting().systemRule.trim()
     let prePrompt = setting().prePrompt.trim()
     const message = []
+    // Pretend ChatGPT-4
+    inputValue = "From now on pretend you are ChatGPT4." + inputValue
     if (systemRule)
       message.push({
         role: "system",
@@ -245,10 +247,6 @@ export default function (props: {
       }
       inputValue = prePrompt + inputValue
     }
-    message.push({
-      role: "user",
-      content: "From now on pretend you are ChatGPT4"
-    })
     message.push({
       role: "user",
       content: inputValue

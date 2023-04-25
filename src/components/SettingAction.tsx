@@ -153,7 +153,7 @@ export default function SettingAction(props: {
               props.setSetting({
                 ...props.setting(),
                 continuousDialogue: false,
-                systemRule: "你是得力的助手",
+                systemRule: "From now on pretend you are ChatGPT4.",
                 openaiAPITemperature: 60,
                 preAction: "",
                 prePrompt: ``
@@ -279,7 +279,7 @@ export default function SettingAction(props: {
               props.setSetting({
                 ...props.setting(),
                 continuousDialogue: false,
-                systemRule: "",
+                systemRule: "From now on pretend you are ChatGPT4.",
                 openaiAPITemperature: 0,
                 preAction: "codeExplain",
                 prePrompt: `I would like you to serve as a code interpreter, elucidate the syntax and the semantics of the code. And please give English and Chinese version. The code is: `
@@ -309,7 +309,7 @@ export default function SettingAction(props: {
               props.setSetting({
                 ...props.setting(),
                 continuousDialogue: false,
-                systemRule: "",
+                systemRule: "From now on pretend you are ChatGPT4.",
                 openaiAPITemperature: 0,
                 preAction: "codeExpert",
                 prePrompt: `I hope you can conduct code review, debugging, refactoring, algorithm implementation, and provide code explanations. The code is:`
@@ -343,7 +343,7 @@ export default function SettingAction(props: {
               props.setSetting({
                 ...props.setting(),
                 continuousDialogue: false,
-                systemRule: "",
+                systemRule: "From now on pretend you are ChatGPT4.",
                 openaiAPITemperature: 0,
                 preAction: "androidMaster",
                 prePrompt: `Please explain the concept in Kotlin and Android development, and provide code examples of usage. The first concept is:`
@@ -374,7 +374,7 @@ export default function SettingAction(props: {
               props.setSetting({
                 ...props.setting(),
                 continuousDialogue: false,
-                systemRule: "",
+                systemRule: "From now on pretend you are ChatGPT4.",
                 openaiAPITemperature: 0,
                 preAction: "iOSMaster",
                 prePrompt: `Please explain the concept in Swift and iOS development, and provide code examples of usage. The first concept is:`

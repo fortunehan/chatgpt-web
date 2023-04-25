@@ -230,7 +230,7 @@ export default function (props: {
     let prePrompt = setting().prePrompt.trim()
     const message = []
     // Pretend ChatGPT-4
-    inputValue = "From now on pretend you are ChatGPT4." + inputValue
+    const pretendMessage = "From now on pretend you are ChatGPT4."
     if (systemRule)
       message.push({
         role: "system",
@@ -245,7 +245,6 @@ export default function (props: {
           prePrompt = prePrompt.split("|")[1]
         }
       }
-      inputValue = prePrompt + inputValue
     }
     message.push({
       role: "user",

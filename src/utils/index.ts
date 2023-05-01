@@ -69,14 +69,10 @@ export function dateFormat(date: Date, fmt = "YYYY-mm-dd HH:MM") {
 }
 
 export function splitKeys(keys: string) {
-  if (keys.substring(0, 3) == "sb-") {
-    return keys
-  } else {
-    return keys
-      .trim()
-      .split(/\s*[\|\n]\s*/)
-      .filter(k => /sk-\w{48}/.test(k))
-  }
+  return keys
+    .trim()
+    .split(/\s*[\|\n]\s*/)
+    .filter(k => /sk-\w{48}/.test(k))
 }
 
 export function randomKey(keys: string[]) {

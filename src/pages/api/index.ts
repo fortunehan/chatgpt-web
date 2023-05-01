@@ -36,7 +36,6 @@ export const config = {
 }
 
 export const localKey = import.meta.env.OPENAI_API_KEY || ""
-
 export const baseURL = import.meta.env.NOGFW
   ? "api.openai.com"
   : (import.meta.env.OPENAI_API_BASE_URL || "api.openai.com").replace(
@@ -108,7 +107,13 @@ export const post: APIRoute = async context => {
       }
     }
 
-    const apiKey = randomKey(splitKeys(key))
+    let apiKey
+    if (key.substring(0, 3) == "sb-") {
+      apiKey = key
+    } else {
+      apiKey = randomKey(splitKeys(key))
+    }
+    // const apiKey = randomKey(splitKeys(key))
 
     if (!apiKey) throw new Error("没有填写 OpenAI API key，或者 key 填写错误。")
 
@@ -129,7 +134,6 @@ export const post: APIRoute = async context => {
 
     const encoder = new TextEncoder()
     const decoder = new TextDecoder()
-
     const rawRes = await fetchWithTimeout(
       `https://${baseURL}/v1/chat/completions`,
       {

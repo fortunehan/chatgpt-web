@@ -153,8 +153,9 @@ export default function SettingAction(props: {
               props.setSetting({
                 ...props.setting(),
                 continuousDialogue: false,
-                systemRule: "From now on pretend you are ChatGPT4.",
+                systemRule: "",
                 openaiAPITemperature: 60,
+                model: "gpt-3.5-turbo",
                 preAction: "",
                 prePrompt: ``
               })
@@ -182,7 +183,8 @@ export default function SettingAction(props: {
                 ...props.setting(),
                 continuousDialogue: false,
                 systemRule: "",
-                openaiAPITemperature: 0,
+                openaiAPITemperature: 10,
+                model: "gpt-3.5-turbo",
                 preAction: "translate",
                 prePrompt: `你是一个翻译引擎，请将翻译给到的文本，只需要翻译不需要解释。当且仅当文本只有一个单词时，请给出单词原始形态（如果有）、单词的语种、对应的音标（如果有）、所有含义（含词性）、双语示例，至少三条例句，请严格按照下面格式给到翻译结果：
                 <原始文本>
@@ -218,7 +220,8 @@ export default function SettingAction(props: {
                 continuousDialogue: false,
                 systemRule:
                   "Revise the following sentences to make them more clear, concise, and coherent.",
-                openaiAPITemperature: 0,
+                openaiAPITemperature: 10,
+                model: "gpt-3.5-turbo",
                 preAction: "polish",
                 prePrompt: `polish this text in English. This is the text：`
               })
@@ -249,7 +252,8 @@ export default function SettingAction(props: {
                 continuousDialogue: false,
                 systemRule:
                   "You are a translation engine and grammar analyzer.",
-                openaiAPITemperature: 0,
+                openaiAPITemperature: 10,
+                model: "gpt-3.5-turbo",
                 preAction: "grammar",
                 prePrompt: `translate this text to Chinese and explain the grammar in the original text using Chinese. This is the text：`
               })
@@ -279,8 +283,9 @@ export default function SettingAction(props: {
               props.setSetting({
                 ...props.setting(),
                 continuousDialogue: false,
-                systemRule: "From now on pretend you are ChatGPT4.",
-                openaiAPITemperature: 0,
+                systemRule: "",
+                openaiAPITemperature: 30,
+                model: "gpt-3.5-turbo",
                 preAction: "codeExplain",
                 prePrompt: `I would like you to serve as a code interpreter, elucidate the syntax and the semantics of the code. And please give English and Chinese version. The code is: `
               })
@@ -309,9 +314,10 @@ export default function SettingAction(props: {
               props.setSetting({
                 ...props.setting(),
                 continuousDialogue: false,
-                systemRule: "From now on pretend you are ChatGPT4.",
-                openaiAPITemperature: 0,
+                systemRule: "",
+                openaiAPITemperature: 30,
                 preAction: "codeExpert",
+                model: "gpt-3.5-turbo",
                 prePrompt: `I hope you can conduct code review, debugging, refactoring, algorithm implementation, and provide code explanations. The code is:`
               })
             }
@@ -343,8 +349,9 @@ export default function SettingAction(props: {
               props.setSetting({
                 ...props.setting(),
                 continuousDialogue: false,
-                systemRule: "From now on pretend you are ChatGPT4.",
-                openaiAPITemperature: 0,
+                systemRule: "",
+                openaiAPITemperature: 30,
+                model: "gpt-3.5-turbo",
                 preAction: "androidMaster",
                 prePrompt: `Please explain the concept in Kotlin and Android development, and provide code examples of usage. The first concept is:`
               })
@@ -374,9 +381,10 @@ export default function SettingAction(props: {
               props.setSetting({
                 ...props.setting(),
                 continuousDialogue: false,
-                systemRule: "From now on pretend you are ChatGPT4.",
-                openaiAPITemperature: 0,
+                systemRule: "",
+                openaiAPITemperature: 30,
                 preAction: "iOSMaster",
+                model: "gpt-3.5-turbo",
                 prePrompt: `Please explain the concept in Swift and iOS development, and provide code examples of usage. The first concept is:`
               })
             }
@@ -396,6 +404,38 @@ export default function SettingAction(props: {
             >
               <path d="M11.182.008C11.148-.03 9.923.023 8.857 1.18c-1.066 1.156-.902 2.482-.878 2.516.024.034 1.52.087 2.475-1.258.955-1.345.762-2.391.728-2.43Zm3.314 11.733c-.048-.096-2.325-1.234-2.113-3.422.212-2.189 1.675-2.789 1.698-2.854.023-.065-.597-.79-1.254-1.157a3.692 3.692 0 0 0-1.563-.434c-.108-.003-.483-.095-1.254.116-.508.139-1.653.589-1.968.607-.316.018-1.256-.522-2.267-.665-.647-.125-1.333.131-1.824.328-.49.196-1.422.754-2.074 2.237-.652 1.482-.311 3.83-.067 4.56.244.729.625 1.924 1.273 2.796.576.984 1.34 1.667 1.659 1.899.319.232 1.219.386 1.843.067.502-.308 1.408-.485 1.766-.472.357.013 1.061.154 1.782.539.571.197 1.111.115 1.652-.105.541-.221 1.324-1.059 2.238-2.758.347-.79.505-1.217.473-1.282Z" />
               <path d="M11.182.008C11.148-.03 9.923.023 8.857 1.18c-1.066 1.156-.902 2.482-.878 2.516.024.034 1.52.087 2.475-1.258.955-1.345.762-2.391.728-2.43Zm3.314 11.733c-.048-.096-2.325-1.234-2.113-3.422.212-2.189 1.675-2.789 1.698-2.854.023-.065-.597-.79-1.254-1.157a3.692 3.692 0 0 0-1.563-.434c-.108-.003-.483-.095-1.254.116-.508.139-1.653.589-1.968.607-.316.018-1.256-.522-2.267-.665-.647-.125-1.333.131-1.824.328-.49.196-1.422.754-2.074 2.237-.652 1.482-.311 3.83-.067 4.56.244.729.625 1.924 1.273 2.796.576.984 1.34 1.667 1.659 1.899.319.232 1.219.386 1.843.067.502-.308 1.408-.485 1.766-.472.357.013 1.061.154 1.782.539.571.197 1.111.115 1.652-.105.541-.221 1.324-1.059 2.238-2.758.347-.79.505-1.217.473-1.282Z" />
+            </svg>
+          </button>
+
+          <button
+            id="G4"
+            title="G4"
+            onClick={() =>
+              props.setSetting({
+                ...props.setting(),
+                continuousDialogue: false,
+                systemRule: "",
+                openaiAPITemperature: 60,
+                preAction: "G4",
+                prePrompt: ``,
+                model: "gpt-4"
+              })
+            }
+            classList={{
+              "px-2 py-2 mr-2": true,
+              "border-blue-600 border-b": props.setting().preAction === "G4"
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-4-circle"
+              viewBox="0 0 16 16"
+            >
+              <path d="M7.519 5.057c.22-.352.439-.703.657-1.055h1.933v5.332h1.008v1.107H10.11V12H8.85v-1.559H4.978V9.322c.77-1.427 1.656-2.847 2.542-4.265ZM6.225 9.281v.053H8.85V5.063h-.065c-.867 1.33-1.787 2.806-2.56 4.218Z" />
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Z" />
             </svg>
           </button>
         </div>

@@ -44,15 +44,18 @@ export async function GET() {
     const bannedKeyBillings = billings.filter(k => k.totalGranted === 0)
     const unBanKeyBillings = billings.filter(k => k.totalGranted > 0)
     const table = await genBillingsTable(billings)
-    const titles = ["帐号余额充足", "没有帐号不可用"]
+    const titles = [
+      "Sufficient account balance.",
+      "Account is required to use."
+    ]
     if (unBanKeyBillings.some(k => k.rate < 0.05))
-      titles[0] = "有帐号余额已少于 5%"
+      titles[0] = "Have an account balance that is less than 5%"
     if (bannedKeyBillings.length) {
-      titles[1] = "有帐号不可用"
+      titles[1] = "Some accounts are not available"
     }
     await push(titles.join("，"), table)
   } catch (e) {
-    await push(`运行错误\n${String(e)}`)
+    await push(`Run Error\n${String(e)}`)
   }
   return new Response("")
 }

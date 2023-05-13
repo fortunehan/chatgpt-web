@@ -127,8 +127,8 @@ export default function () {
         if (store.remainingToken < 0) {
           throw new Error(
             store.sessionSettings.continuousDialogue
-              ? "本次对话过长，请清除之前部分对话或者缩短当前提问。"
-              : "提问太长了，请缩短。"
+              ? "The current conversation is too long. Please clear the previous part of the dialogue or shorten the current question."
+              : "The question is too long, please shorten it."
           )
         }
         setStore("loading", true)

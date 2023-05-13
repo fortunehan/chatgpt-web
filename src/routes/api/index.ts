@@ -62,21 +62,23 @@ export async function POST({ request }: APIEvent) {
     const { messages, key = localKey, temperature, password, model } = body
 
     if (passwordSet && password !== passwordSet) {
-      throw new Error("密码错误，请联系网站管理员。")
+      throw new Error("Incorrect password, please contact the admin.")
     }
 
     if (!messages?.length) {
-      throw new Error("没有输入任何文字。")
+      throw new Error("No text input.")
     } else {
       const content = messages.at(-1)!.content.trim()
-      if (content.startsWith("查询填写的 Key 的余额")) {
+      if (content.startsWith("Check the balance of the filled Key")) {
         if (key !== localKey) {
           const billings = await Promise.all(
             splitKeys(key).map(k => fetchBilling(k))
           )
           return new Response(await genBillingsTable(billings))
         } else {
-          throw new Error("没有填写 OpenAI API key，不会查询内置的 Key。")
+          throw new Error(
+            "If you do not fill in the OpenAI API key, the built-in key will not be queried."
+          )
         }
       } else if (content.startsWith("sk-")) {
         const billings = await Promise.all(
@@ -88,7 +90,10 @@ export async function POST({ request }: APIEvent) {
 
     const apiKey = randomKey(splitKeys(key))
 
-    if (!apiKey) throw new Error("没有填写 OpenAI API key，或者 key 填写错误。")
+    if (!apiKey)
+      throw new Error(
+        "The OpenAI API key is not filled in, or the key is filled in incorrectly."
+      )
 
     const encoder = new TextEncoder()
     const decoder = new TextDecoder()

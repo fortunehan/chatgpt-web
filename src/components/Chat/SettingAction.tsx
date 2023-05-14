@@ -214,7 +214,6 @@ export default function SettingAction() {
               )
             }}
             icon="i-carbon:settings"
-            label=""
           />
           <ActionItem
             onClick={() => {
@@ -223,7 +222,6 @@ export default function SettingAction() {
               )
             }}
             icon="i-carbon:settings-services"
-            label=""
           />
         </div>
         <Switch
@@ -237,7 +235,6 @@ export default function SettingAction() {
                   })
                 }}
                 icon={roleIcons[actionState.fakeRole]}
-                label=""
               />
               <ActionItem
                 onClick={async () => {
@@ -246,10 +243,8 @@ export default function SettingAction() {
                   setTimeout(() => setActionState("genImg", "normal"), 1000)
                 }}
                 icon={imgIcons[actionState.genImg]}
-                label=""
               />
               <ActionItem
-                label=""
                 onClick={async () => {
                   await exportMD(store.messageList)
                   setActionState("success", "markdown")
@@ -278,9 +273,6 @@ export default function SettingAction() {
                   actionState.clearSessionConfirm
                     ? "i-carbon:checkmark animate-bounce text-red-6 dark:text-red"
                     : "i-carbon:clean"
-                }
-                label={
-                  actionState.clearSessionConfirm ? "Confirm" : "Clean All"
                 }
               />
             </div>

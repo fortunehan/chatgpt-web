@@ -20,7 +20,7 @@ const adapter = () => {
   if (process.env.VERCEL) {
     return vercel({ edge: true })
   } else if (process.env.NETLIFY) {
-    return netlify({ edge: true })
+    return netlify({ edge: false })
   } else if (process.env.CF_WORKER) {
     return cloudflare({})
   } else {

@@ -21,6 +21,12 @@ export default function () {
   const q = searchParams[SearchParamKey]
   const { store, setStore } = RootStore
   onMount(() => {
+    // set dark theme by default
+    document
+      ?.querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", "#16161a")
+    localStorage.setItem(LocalStorageKey.THEME, "dark")
+
     createResizeObserver(containerRef, ({ width }, el) => {
       if (el === containerRef) setContainerWidth(`${width}px`)
     })

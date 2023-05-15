@@ -22,7 +22,7 @@ export default function MessageAction({
       <div class="flex absolute items-center justify-between <sm:top--4 <sm:right-0 top-2 right-2 text-sm text-slate-7 dark:text-slate group-hover:opacity-100 group-focus:opacity-100 opacity-0 dark:bg-#292B32 bg-#E7EBF0 rounded">
         <Show when={role === "assistant"}>
           <ActionItem
-            label="Copy"
+            label=""
             onClick={() => {
               setCopied(true)
               copy()
@@ -34,11 +34,7 @@ export default function MessageAction({
         <Show when={role === "user"}>
           <ActionItem label="Edit" onClick={edit} icon={"i-carbon:edit"} />
         </Show>
-        <ActionItem
-          label="Re-answer"
-          onClick={reAnswer}
-          icon={"i-carbon:reset"}
-        />
+        <ActionItem label="" onClick={reAnswer} icon={"i-carbon:reset"} />
         <ActionItem label="Delete" onClick={del} icon={"i-carbon:trash-can"} />
       </div>
     </Show>

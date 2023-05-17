@@ -313,7 +313,7 @@ export default function SettingAction() {
                   loadSession(sessionID)
                 }}
                 icon="i-carbon:add-alt"
-                label="New Chat"
+                label=""
               />
               <Show when={store.sessionId !== "index"}>
                 <ActionItem

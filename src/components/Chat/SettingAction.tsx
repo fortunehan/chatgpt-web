@@ -454,7 +454,7 @@ async function exportData() {
   a.href = URL.createObjectURL(
     new Blob([JSON.stringify(localStorage)], { type: "application/json" })
   )
-  a.download = `ChatGPT-${dateFormat(new Date(), "HH-MM-SS")}.json`
+  a.download = `${dateFormat(new Date(), "HH-MM-SS")}.json`
   a.click()
 }
 

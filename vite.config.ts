@@ -4,7 +4,8 @@ import netlify from "solid-start-netlify"
 // @ts-ignore
 import node from "solid-start-node"
 import vercel from "solid-start-vercel"
-import cloudflare from "solid-start-cloudflare-workers"
+// import cloudflare from "solid-start-cloudflare-workers"
+import cloudflare from "solid-start-cloudflare-pages"
 import { defineConfig } from "vite"
 import unocss from "unocss/vite"
 import {

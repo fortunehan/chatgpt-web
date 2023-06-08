@@ -21,7 +21,7 @@ const adapter = () => {
   if (process.env.VERCEL) {
     return vercel({ edge: true })
   } else if (process.env.NETLIFY) {
-    return netlify({ edge: true })
+    return netlify({ edge: false })
   } else if (process.env.CF_WORKER) {
     return cloudflare({})
   } else {
@@ -58,9 +58,9 @@ export default defineConfig({
       includeAssets: ["favicon.svg", "apple-touch-icon.png"],
       registerType: "autoUpdate",
       manifest: {
-        name: "ChatGPT",
+        name: "Dev-Query",
         lang: "zh-cn",
-        short_name: "ChatGPT",
+        short_name: "Dev-Query",
         background_color: "#f6f8fa",
         icons: [
           {

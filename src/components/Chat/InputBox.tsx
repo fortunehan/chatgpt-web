@@ -160,13 +160,13 @@ export default function ({
           when={!store.loading}
           fallback={
             <div
-              class="animate-gradient-border cursor-pointer dark:bg-#292B31/90 bg-#E7EBF0/80 h-3em flex items-center justify-center"
+              class="animate-gradient-border cursor-pointer h-3em flex items-center justify-center"
               onClick={stopStreamFetch}
             >
-              <span class="dark:text-slate text-slate-7">
-                AI 正在思考 / {shownTokens(store.currentMessageToken)} / $
-                {store.currentMessageToken$.toFixed(4)}
-              </span>
+              {/*<span class="dark:text-slate text-slate-7">*/}
+              {/*  AI 正在思考 / {shownTokens(store.currentMessageToken)} / $*/}
+              {/*  {store.currentMessageToken$.toFixed(4)}*/}
+              {/*</span>*/}
             </div>
           }
         >
@@ -178,7 +178,7 @@ export default function ({
             <textarea
               ref={el => setStore("inputRef", el)}
               id="input"
-              placeholder="与 ta 对话吧"
+              placeholder=""
               autocomplete="off"
               value={store.inputContent}
               autofocus

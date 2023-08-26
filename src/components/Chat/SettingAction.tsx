@@ -213,7 +213,7 @@ export default function SettingAction() {
               )
             }}
             icon="i-carbon:settings"
-            label="全局设置"
+            label=""
           />
           <ActionItem
             onClick={() => {
@@ -222,7 +222,7 @@ export default function SettingAction() {
               )
             }}
             icon="i-carbon:settings-services"
-            label="对话设置"
+            label=""
           />
         </div>
         <Switch
@@ -318,7 +318,7 @@ export default function SettingAction() {
                   loadSession(sessionID)
                 }}
                 icon="i-carbon:add-alt"
-                label="新的对话"
+                label=""
               />
               <Show when={store.sessionId !== "index"}>
                 <ActionItem

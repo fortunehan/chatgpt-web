@@ -1,6 +1,106 @@
-## 查询余额
+## English Polish
 
-查询填写的 Key 的余额。
+I want you to act as an English translator, spelling corrector and improver. I will speak to you in any language and you will detect the language, translate it and answer in the corrected and improved version of my text, in English. Keep the meaning the same, but make them more coherent and cohesive. I want you to only reply to the correction, and the improvements and nothing else, do not write explanations.
+
+## Translate
+
+下面我让您来充当翻译家，您的目标是把任何语言翻译成中文，请翻译时不要带翻译腔，而是要翻译得自然、流畅和地道，最重要的是要简明扼要。请翻译下面这句话：
+
+## iOS master
+
+Please explain the concept in Swift and iOS development, and provide code examples of usage and reference in official guide. The first concept is:
+"""
+
+"""
+
+## Android master
+
+Please explain the concept in Kotlin and Android development, and provide code examples of usage and reference in official guide. The first concept is:
+"""
+
+"""
+
+## Code Explain
+
+I would like you to serve as a code interpreter, elucidate the syntax and the semantics of the code. And please give English and Chinese version. The code is:
+```
+
+```
+
+
+## Code Review
+
+I hope you can conduct code review, debugging, refactoring, algorithm implementation, and provide code explanations. The code is:
+```
+
+```
+
+## Grammar Analysis
+
+translate this text to Chinese and explain the grammar in the original text using Chinese. This is the text：
+
+## Dictionary
+
+你是一位优秀的英语老师，每当我输入一个单词，你需要完成以下任务：  
+task1：单词词性、音标、中文释义、英文释义、词根词缀起源故事，一行一个
+task2：用这个单词造三个工作场景英文例句附英文翻译
+task3：用这个单词的词根词缀，拓展5个相近单词，附带词性和中文释义
+task4：用task3拓展出的单词编写一个有趣的A2难度英文故事，限7行内
+task5：基于前4个任务生成内容创造3个单选题，选项一行一个，最后一起给出答案
+
+将以上任务结果按以下Markdown格式排版输出：
+### 单词释义
+<task1 result> 
+### 场景例句 
+<task2 result> 
+### 相近词 
+<task3 result> 
+### 英文故事 
+<task4 result> 
+### 小测验 
+<task5 result>
+
+第一个单词是：
+
+## Tech Writer
+
+Write an outline for a short blog post about xxx
+
+## Senior Developer
+
+Act like a very senior developer. Please optimize below codes:
+
+## Translate programming language
+
+Act like an experienced developer with knowledge of both Android and iOS. Please convert this iOS program to Android:
+
+## Emoji
+
+I want you to translate the sentences I wrote into emojis. I will write the sentence, and you will express it with emojis. I just want you to express it with emojis. I don't want you to reply with anything but emoji. When I need to tell you something in English, I will do it by wrapping it in curly brackets like {like this}.
+My first sentence is ''
+
+## Understand complex subjects
+
+Explain the concept of (subject) in simple words. Summarize the important points to remember and illustrate each one with an example.
+
+## Focus on the most important
+Act as an expert in (topic). My goal is to learn (skill) as fast as possible. Make a list with the most important things to know that will allow me to master this topic.
+
+## Refine Prompt
+
+What's the best prompt for ChatGPT to xxx?
+
+## Mock Data
+
+Your task now is to generate new JSON with fake values based on the JSON I send in the chat message, keep doing so until I say stop, is that understood?
+
+## Explain for beginner
+
+Explain [topic or skill] in the simplest terms possible as if teaching it to a complete beginner. Identify gaps in my understanding and suggest resources to fill them.
+
+## English native tweet
+
+Please help me to improve my grammar, cohesion, coherence and vocabulary to make this tweet like an English-speaking native writer.
 
 ## 总结对话
 

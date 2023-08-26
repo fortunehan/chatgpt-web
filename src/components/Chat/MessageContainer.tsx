@@ -79,27 +79,27 @@ export default function ({
             when={store.inputContentToken}
             fallback={
               <span class="mx-1 text-slate/40">
-                {`有效上下文 Tokens : ${shownTokens(
-                  store.contextToken
-                )}/$${store.contextToken$.toFixed(4)}`}
+                {/*{`有效上下文 Tokens : ${shownTokens(*/}
+                {/*  store.contextToken*/}
+                {/*)}/$${store.contextToken$.toFixed(4)}`}*/}
               </span>
             }
           >
-            <span class="mx-1 text-slate/40">
-              {`有效上下文+提问 Tokens : ${shownTokens(
-                store.contextToken + store.inputContentToken
-              )}(`}
-              <span
-                classList={{
-                  "text-red-500": store.remainingToken < 0
-                }}
-              >
-                {shownTokens(store.remainingToken)}
-              </span>
-              {`)/$${(store.contextToken$ + store.inputContentToken$).toFixed(
-                4
-              )}`}
-            </span>
+            {/*<span class="mx-1 text-slate/40">*/}
+            {/*  {`有效上下文+提问 Tokens : ${shownTokens(*/}
+            {/*    store.contextToken + store.inputContentToken*/}
+            {/*  )}(`}*/}
+            {/*  <span*/}
+            {/*    classList={{*/}
+            {/*      "text-red-500": store.remainingToken < 0*/}
+            {/*    }}*/}
+            {/*  >*/}
+            {/*    {shownTokens(store.remainingToken)}*/}
+            {/*  </span>*/}
+            {/*  {`)/$${(store.contextToken$ + store.inputContentToken$).toFixed(*/}
+            {/*    4*/}
+            {/*  )}`}*/}
+            {/*</span>*/}
           </Show>
           <hr class="flex-1  border-slate/30" />
         </div>
